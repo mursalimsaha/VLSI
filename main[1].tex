@@ -1,0 +1,1646 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx,amsmath,amssymb,float,color, ,nomencl,epstopdf,cite,enumerate}
+\usepackage[colorlinks = true,linkcolor = blue,urlcolor  = blue,citecolor = blue,anchorcolor = blue]{hyperref}
+\usepackage{sectsty}
+\usepackage{breqn}
+
+\usepackage{enumitem}
+\usepackage{pifont}
+\newcommand{\checkboxUnchecked}{\doing{113}} 
+\newcommand{\checkboxChecked}{\doing{51}}
+
+\usepackage{subcaption}
+\usepackage[T1]{fontenc}
+
+\setlength{\hoffset}{-2cm}
+\setlength{\voffset}{-2.8cm}
+\setlength{\textheight}{9.5in}
+\setlength{\textwidth}{6.8in}
+\setcounter{equation}{0}
+%\renewcommand{\theequation}{4.\arabic{equation}}
+\renewcommand{\baselinestretch}{1.5}
+\newcommand{\drop}[1]{}
+\newcommand{\ord}{{\cal O}}
+\newcommand{\cmt}[1]{{\color{blue}{#1}}}
+\usepackage[table]{xcolor}
+%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page %%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
+\begin{center}
+\noindent {\bf{\Large{Full Custom ASIC Design Using Cadence Virtuoso And Implementation Of Verilog Code
+In Vivado Software}}}\\
+\end{center}
+\vspace{10mm}
+\begin{center}
+A Report on Summer Internship\\ (9th June – 15th July 2025)\\ 
+submitted by \\
+\vspace{3mm}
+\textbf{Mursalim Saha},
+\\ 
+Roll No.: 22101105054,\\
+Department of Electronics and Communication Engineering,\\
+\textbf{Jalpaiguri Government Engineering College},
+\\ \vspace{3mm}
+under the supervision of \\
+\vspace{5mm}
+\textbf{Dr. Amit Prakash}
+
+\textbf{Dr. Arjun Kumar}
+
+\vspace{5mm}
+\end{center}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.2\linewidth]{logo.png}
+   
+\end{figure}
+\begin{center}
+\vspace{2mm}
+{\bf {\large {\sc \textbf{DEPARTMENT OF ELECTRONICS AND COMMUNICATION ENGINEERING}}}}\\
+\vspace{2mm}
+{\bf {\large {\sc \textbf{NATIONAL INSTITUTE OF TECHNOLOGY JAMSHEDPUR}}}}\\
+\vspace{2mm}
+{\textbf{ \textcolor{blue}{\today}}}\\
+\end{center}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Certificate %%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+\begin{center}
+\begin{large}
+{\bf CERTIFICATE}
+\end{large}
+\end{center}
+\vskip 0.2in
+It is certified that the work contained in this project report entitled ``\textbf{\textit{Full Custom ASIC Design Using Cadence Virtuoso And Implementation Of Verilog Code
+In Vivado Software}}'', by \textbf{Mursalim Saha (Roll. No. 22101105054)}, Department of Electronics and Communication Engineering of the Jalpaiguri Government Engineering College, is submitted for the Summer Internship from 9th June to 15th July 2025 carried out under the supervision of \textbf{Dr. Amit Prakash and Dr. Arjun Kumar} in the Department of Electronics and Communication Engineering of NIT Jamshedpur.
+\vskip 0.3in
+\noindent \textbf{Mursalim Saha (Roll. No. 22101105054)}\\
+Department of Electronics and Communication Engineering,\\
+Jalpaiguri Government Engineering College\\
+\vskip 0.3in
+\noindent \textbf{Dr. Amit Prakash}\\
+(Supervisor) \\
+Associate Professor \\
+Department of Electronics and Communication Engineering\\
+National Institute of Technology Jamshedpur
+\vskip 0.3in
+\noindent \textbf{Dr. Arjun Kumar}\\
+(Supervisor) \\ 
+Assistant Professor \\
+Department of Electronics and Communication\\
+National Institute of Technology Jamshedpur
+\vskip 0.3in
+\noindent \textbf{Dr. Dilip Kumar}\\
+Associate Professor \\
+Head of the Department \\ 
+Department of Electronics and Communication Engineering\\
+National Institute of Technology Jamshedpur
+%\thispagestyle{empty}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ACKNOWLEDGEMENT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+\begin{large}
+{\bf ACKNOWLEDGMENT}
+\end{large}
+\end{center}
+\vskip 0.2in
+I would like to express our special thanks of gratitude to our Supervisor \textbf{Dr. Amit Prakash and Dr. Arjun Kumar} as well as the Director \textbf{Dr. Goutam Sutradhar} who gave us the golden opportunity to do this wonderful project on the topic \textbf{'Full Custom ASIC Design Using Cadence Virtuoso And Implementation Of Verilog Code
+In Vivado Software'}. This also helped us to do a lot of research and I came to know about so many new things.
+Secondly we would like to thank \textbf{Arkaprava Mahato (Phd Research Scholar)}.
+Also we would like to thank our parents and friends who helped us a lot in finishing this project within the limited time.
+\vskip 1in
+\vskip 1in
+\noindent \textbf{Mursalim Saha(Roll. No. 22101105054)}\\
+Department of Electronics and Communication Engineering,\\
+Jalpaiguri Government Engineering College\\
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%
+\begin{center}
+\begin{large}
+{\bf ABSTRACT}
+\end{large}
+\end{center}
+\vskip 0.2in
+This project focuses on the full custom ASIC (application specific integrated circuit) design using Cadence Virtuoso, along with the functional implementation of digital logic circuits using Verilog in Vivado software.\\
+In the Cadence Virtuoso environment ,fundamental logic gates such as CMOS inverters, NOR, NAND and XOR gates were designed. Additionally D flipflop, 2x1 multiplexer(MUX) using transmission gate logic, 4x1 multiplexer(MUX) using 2x1 MUX was constructed .The entire design flow was beginning with the schematic creation and symbol generation for each gate. After functional verification through simulation, layout designs were built for all circuits using standard CMOS design rules. Each layout was thoroughly verified using Design Rule Check (DRC) and Layout Versus Schematic (LVS) to ensure correctness. Finally, extracted views were generated for each design to perform post-layout power analysis, and the results were compared with the schematic-level estimates.Some key performance metrics such as propagation delay,power dissipation were calculated and compared across the designs.\\
+In Parallel,digital logic circuits were implemented using verilog in Vivado software including design and simulation of a 4-bit up counter,4-bit down counter,4-bit updown counter,half adder and full adder. These designs validate the functional correctness of combinational and sequential digital systems.
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+\section{Introduction}
+\label{int}
+Due to the ever-changing environment in the field of VLSI (Very Large Scale Integration), there is a growing need for application-specific, high-performance integrated circuits (ASICs) in various applications such as consumer electronics, embedded applications, and communication systems. ASIC design can be customized to have circuit behavior tailored to needs, performance improved at optimized points, and power consumed at a minimum; therefore, it is an important part of today's electronic systems.\\
+This book spans the complete flow of the full custom ASIC design using Cadence Virtuoso with an emphasis on the transistor-level design and verification of the simple digital building blocks. With the assistance provided by the Cadence environment, there is precise control over the devices' sizing, verification and layout optimization steps such as Design Rule Check (DRC), Layout Versus Schematic (LVS) checking, and parasitic extraction.\\
+Simultaneously, the functional nature of corresponding digital logic circuits is translated with the help of Verilog and is simulated with Xilinx Vivado. Not only does this dual method furnish an understanding of the disparity amongst ASIC as well as FPGA design approaches but also solidifies the comprehension regarding the physical and functional design aspects of the digital system. The implementation with the help of Verilog consists of a range of combinational and sequential circuits including adders and counters that confirm the theoretical models applied within the ASIC design.\\
+This report summarizes the design flow and design considerations for the custom ASIC circuits and the Verilog-based FPGA implementations with simulation results and performance analysis. Overall observations regarding current digital system design flows are also provided.
+\\
+\\
+The project workflow includes:\\
+•	Schematic design and symbol generation of each gate\\
+•	Functional verification through transient simulation\\
+•	Layout design following CMOS layout rules\\
+•	Performing Design Rule Check (DRC) and Layout Versus Schematic (LVS)\\
+•	Parasitic extraction from layouts\\
+•	Power analysis and comparison between schematic-level and layout-level implementations
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\linewidth]{3581.pastedimage1729752282858v1.png}
+    \caption{VLSI design flow}
+    \label{fig:vlsi-design-flow}
+\end{figure}
+
+\large{\textbf{the Tool – Cadence Virtuoso}}\\
+\pagenumbering{arabic}
+\label{int}
+Cadence Virtuoso is the industry-leading Electronic Design Automation (EDA) software in the semiconductor industry for the design, simulation, and layout at the transistor level of analog, digital, and mixed-signal circuits. Cadence Design Systems developed the Virtuoso platform that provides a complete custom IC design environment comprising schematic capture, layout, simulation, verification, and analysis within a single design flow.
+The Virtuoso suite is particularly mature at custom analog and mixed-signal VLSI design with full control over every aspect of the circuit from the sizing and topology to the parasitic extraction and post-layout simulation.
+\\
+1.Virtuoso Schematic Editor
+
+It Allows the design of transistor-level circuits using CMOS devices.
+
+It Implements hierarchy, parameterized cells (pcells), and symbol generation.
+
+It is Used for the schematic design of logic gates for this project.
+\\
+2.Virtuoso Analog Design Environment (ADE):
+
+It Provides simulation setup for DC, AC, transient, noise, and parametric sweeps.
+
+It is Fully integrated with the Spectre simulation engine.
+
+It is Used in verifying the working and speed of each logic gate.
+\\
+3.Virtuoso Layout Editor:
+
+It Enables circuit component physical layout design.
+
+It Uses design rule-based placement and routing.
+
+It is Used to illustrate the actual structure of the six logic gates.
+\\
+4.Assura or Calibre (DRC and LVS):
+
+Design Rule Check (DRC) checks that layout meets the manufacturing rules.
+
+Layout vs. Schematic (LVS) verifies the layout against the schematic netlist.
+
+Both were used to verify precision of each design.
+\\
+5.Parasitic Extraction (RCX):
+
+It extracts the resistances and capacitances corresponding to the parasites.
+
+This enables post-layout simulation and accurate power comparison.
+\\
+6.Spectre Simulator:
+
+A fast and accurate SPICE-level simulator used for schematic (pre-layout) and   post layout – GPDK 90nm. GPDK (Generic Process Design Kit)\\
+\\ 
+The GPDK 90nm technology node was used throughout this project. It is a widely used educational and research process kit that includes:\\
+•	Standard NMOS and PMOS models for simulation and layout\\
+•	Predefined p cells (parameterized cells) for transistors\\
+•	Compatible DRC and LVS rules\\
+•	Support for parasitic extraction\\
+
+\begin{table}[h!]
+\centering
+\caption{Technology Specifications}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Feature} & \textbf{Description} \\
+\hline
+Technology Node & 90nm (GPDK 90) \\
+\hline
+Metal Layers Used & Metal1, Metal2, Poly for routing \\
+\hline
+Substrate Type & Bulk CMOS \\
+\hline
+Design Style & Full Custom Transistor-Level Design \\
+\hline
+Logic Families Implemented & Static CMOS, Transmission Gate Logic \\
+\hline
+Power Rails & VDD, GND via Metal1 \\
+\hline
+Simulation Type & Transient Analysis using Spectre \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\section{Motivation}
+%\begin{itemize}
+  Increasing needs for high-performance and low-power electronic systems have stimulated enormous innovation in the design of Application-Specific Integrated Circuit (ASICs). In this context, gaining hands-on experience with full custom ASIC design and with hardware description languages has been valuable in understanding the flows of semiconductor developments that happen around the world.
+
+This project is motivated by the need to bridge the theory-based VLSI concepts vs. design methodologies applied in practice for chips. Utilizing the Cadence Virtuoso, a professional-grade full custom IC design software, we explore the realization of the transistor-level digital circuit with focus on performance, area, and power optimization. On the other hand, the Verilog code implementation with Vivado allows us to transition from the RTL-level design into the field-programmable gate arrays (FPGAs), which are used for rapid prototyping and verification of the digital logic.
+
+Merging the two enables an integrated grasp of the design process from the high-level code to layout-ready silicon. A dual-track strategy is a requirement for the contemporary engineer who should be competent with the HDL-based design as much as with the physical implementation. The project improves practical skills in addition to offering a better understanding and appreciation of the developments and challenges in the design of ASIC.
+%\end{itemize}
+
+\section{Current Status}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% copy pasted%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The project is currently in an advanced stage of development. In the Cadence Virtuoso environment, the schematic design, layout generation, and DRC/LVS verification for fundamental logic circuits—including CMOS inverters, NOR, NAND, XOR gates, D flip-flop, 2×1 MUX, and 4×1 MUX—have been successfully completed. Both pre-layout and post-layout simulations have been conducted, and parasitic extraction has been performed to evaluate circuit behavior and accuracy.
+
+Performance metrics such as propagation delay, static power dissipation, and dynamic power consumption have been calculated for all designed circuits. Parallel to this, the Verilog implementation of digital logic circuits has been completed in Xilinx Vivado. Functional simulation of a 4-bit up counter, 4-bit down counter, 4-bit up-down counter, half adder, and full adder has been successfully performed, confirming the correctness of both combinational and sequential logic designs.
+
+
+\section{Objectives of the internship project}
+The objectives of the project are listed below
+\begin{enumerate}
+    \item In order to schematic design and symbol generation for fundamental digital logic gates with the appropriate representation of the circuit at the transistor level.
+
+    \item To verify circuit functionality through transient simulations using Virtuoso’s Analog Design Environment (ADE) and the Spectre simulator.
+    
+    \item Design physical layouts of digital circuits following CMOS layout rules and comprehend physical design constraints.
+    
+    \item To run Design Rule Check (DRC) and Layout Versus Schematic (LVS) to ensure layouts adhere to manufacturing rules and correspond to the original schematics accurately.
+    
+    \item In order to perform parasitic extraction and post-layout simulation to assess the effect of layout-level parasitics on the circuit's behavior.
+
+    \item For analyzing and comparing the power consumption of schematic-level and layout-level designs. 
+
+    \item To implement and simulate equivalent digital circuits in Verilog using Xilinx Vivado.
+    
+\end{enumerate}
+\section{Learning objectives}
+\begin{itemize}
+  
+\item  To understand the complete flow of full custom ASIC design using Cadence Virtuoso, including schematic creation, layout design, DRC (Design Rule Check), LVS (Layout Versus Schematic), and parasitic extraction.
+
+\item  To gain hands-on experience in designing fundamental logic circuits—such as CMOS inverters, NOR, NAND, XOR gates, D flip-flops, and multiplexers—using transistor-level design methodologies.
+
+\item  To perform and analyze both pre-layout and post-layout simulations for evaluating circuit functionality and verifying the design through DRC and LVS checks.
+
+\item  To calculate and compare essential performance metrics, including propagation delay, power dissipation of the designed logic circuits.
+
+\item  To implement and simulate digital logic circuits using Verilog HDL in Xilinx Vivado, focusing on the design and analysis of combinational and sequential digital systems such as 4-bit counters, half adders, and full adders.
+
+
+\end{itemize}
+
+\section{Full Custom ASIC Design Using Cadence Virtuoso\label{def}}
+In digital electronics, logic gates are the fundamental building blocks used to implement Boolean functions. CMOS technology, which uses a combination of PMOS and NMOS transistors, enables the design of these gates with high noise margins, low power consumption, and reliable performance. Below are the common basic logic gates, their CMOS implementation concepts, and corresponding truth tables. 
+
+\subsection{\large{\textbf{CMOS inverter(NOT Gate)}}}
+\begin{itemize}
+  \item 1 PMOS connected to VDD
+\item 1 NMOS connected to GND
+\item Both gates driven by input A
+\item Output Y is taken from the connection between PMOS and NMOS
+\end{itemize}
+	
+\subsubsection{Logical Expression}
+\[
+Y= \overline{A}
+\]
+
+
+\subsubsection{\textbf{Working Principle}}
+\begin{itemize}
+    \item When Vin = 0 (Low)
+
+            PMOS is ON, NMOS is OFF
+            
+            Output is connected to VDD → Logic 1
+
+\item 
+        When Vin = 1 (High)
+        
+        PMOS is OFF, NMOS is ON
+        
+        Output is connected to GND → Logic 0
+\end{itemize} 
+
+\subsubsection{\textbf{Truth Table}}
+\begin{table}[h!]
+\centering
+\rowcolors{1}{yellow!30}{yellow!30}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Input} & \textbf{Output} \\
+\hline
+0 & 1 \\
+1 & 0 \\
+\hline
+\end{tabular}
+\caption{Truth Table of CMOS Inverter}
+\end{table}
+
+\subsubsection{\textbf{Symbol}}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\linewidth]{Screenshot 2025-07-06 092009.png}
+    \caption{Symbol of CMOS inverter}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{\textbf{Schematic Diagram}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 091929.png}
+    \caption{Schematic circuit diagram of CMOS inverter}
+    \label{fig:schematic_cmos}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Screenshot 2025-07-06 092051.png}
+    \caption{CMOS inverter schematic testbench}
+    \label{fig:schematic_testbench}
+\end{figure}
+
+\subsubsection{\textbf{Component Specifications}}
+\begin{table}[H]
+\centering
+\caption{Component Specifications}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Components} & \textbf{Library} & \textbf{Cell} & \textbf{Value} \\
+\hline
+pmos & gpdk90 & pmos1v & l=100nm ,w=120nm \\
+\hline
+nmos & gpdk90 & nmos1v & l=100nm ,w=120nm \\
+\hline
+vpulse & analogLib & vpulse & v2=1.8v,T=200ps,td=50ps,tr=10ps,tf=10ps,pw=90ps\\
+\hline
+vdd & analogLib & vdc & vdc=1.8v\\
+\hline
+ground & analogLib & gnd & --\\
+
+\hline
+\end{tabular}
+\end{table}
+\subsubsection{\textbf{Output}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-05 221551.png}
+    \caption{output}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{\textbf{Voltage Transfer Characteristics of CMOS inverter}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Screenshot 2025-07-06 105857.png}
+    \caption{Voltage transfer characteristics of CMOS inverter}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{itemize}
+
+\item \textbf{Region-1}
+In this region the input is in the range of (0,Vtn). Since the input voltage is less than Vtn, the NMOS is in cutoff region. No current flows from Vdd to Vss, The entire Vdd will appear at the Output terminal. 
+\begin{enumerate}
+    \item NMOS is in cutoff as Vgs < Vtn
+\item PMOS is in linear as Vgsp < Vtp and Vdsp > Vgsp -Vtp.
+\item Zero current flows from supply voltage and the power dissipation is zero.
+\end{enumerate}
+
+\item \textbf{Region-2}
+In this region the input is in the range of (Vtn,Vdd/2). Since the input voltage is greater than Vtn the NMOS is conducting and it jumps to saturation as it has large Vds across it(Vout is high). PMOS still remains in the linear region.
+\begin{enumerate}
+    \item NMOS is in saturation as Vgs > Vtn and Vout >Vin - Vtn.
+\item PMOS is in linear region as Vdsp > Vgsp -Vtp.
+\item since both the transistors are conducting some amount of current flows from supply in this region.
+\end{enumerate}
+
+\item \textbf{Region-3}
+In this region the input voltage is Vdd/2. At this point the output voltage is also Vdd/2 as one can see in figure-2. At this voltage both the NMOS and PMOS are in saturation and the output drops drastically from Vdd to Vdd/2. At this point a large amount of current flows from the supply. Most of the power consumed in CMOS inverter is at this point. So care should be taken that the Input should not stay at Vdd/2 for more amount of time.
+\begin{enumerate}
+    \item NMOS is in saturation as Vgs > Vtn and Vout >Vin - Vtn.
+    \item PMOS is in saturation as Vgsp < Vtp and Vdsp < Vgsp -Vtp.
+    \item Large amount of current is drawn from supply and hence large power dissipation.
+\end{enumerate}
+
+\item \textbf{Region-4}
+In this region the input voltage is in the range of (Vdd/2 , Vdd-Vtp). Here the PMOS remains in saturation as Vout < Vin - Vtp and Vgsp < Vtp. But the NMOS moves from saturation to linear region since the drain to source voltage now is less than Vgsn-Vtn.
+\begin{enumerate}
+    \item NMOS is in linear as Vgs > Vtn and Vout < Vin - Vtn.
+\item PMOS is in saturation as Vgsp < Vtp and Vdsp < Vgsp -Vtp.
+\item A medium amount of current is drawn as NMOS is in linear region and power dissipation is low.
+\end{enumerate}
+
+\item \textbf{Region-5}
+In this region the input voltage is in the range of (Vdd-Vtp,Vdd). Here the PMOS moves from saturation to cutoff as the Vgsp is so high that Vgsp > Vtp. The NMOS still remains linear as the drain-to-source voltage now is less than Vgsn-Vtn.
+\begin{enumerate}
+    \item NMOS is in linear as Vgs > Vtn and Vout < Vin - Vtn.
+\item PMOS is in cutoff as Vgsp > Vtp.
+\item Zero current flows from the supply and so the power dissipation is zero.
+
+\end{enumerate}
+\end{itemize}
+
+\subsubsection{Propagation Delay of CMOS inverter }
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-07 145535.png}
+        \caption{CMOS inverter}
+        \label{fig:enter-label}
+    \end{figure}
+    \begin{itemize}
+        \item When input goes from low to high PMOS is OFF \& NMOS of ON. So $C_{load}$ gets discharging via NMOS.
+        \item When input goes from high to low PMOS is ON \& NMOS of OFF. So $C_{load}$ gets charging via PMOS.
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-07 144621.png}
+        \caption{Dynamic characteristics of CMOS inverter}
+        \label{fig:enter-label}
+    \end{figure}
+
+\textbf{Switching speed} - limited by time taken to charge and discharge, CL. \\
+\textbf{Rise time, tr}: waveform to rise from 10\% to 90\% of its steady state value\\
+\textbf{Fall time tf}: 90\% to 10\% of steady state value\\
+\textbf{Delay time, td}: time difference between input transition (50\%) and 50\% output level.\\
+The  propagation  delay  tp of  a  gate  defines  how  quickly  it  responds  to  a  change  at  its  inputs, it expresses the delay experienced by a signal when passing through a gate. It is measured  between  the  50\%  transition  points  of  the  input  and  output  waveforms. The $\tau_{pLH}$ defines the response time of the gate for a low to high output transition, while $\tau_{pHL}$  refers to a high to low transition. The propagation delay $\tau_{p}$ as the average of the two.
+\[
+\tau_p = \frac{(\tau_{pLH} + \tau_{pHL})}{2}
+\]
+
+
+
+
+\subsubsection{\textbf{Layout}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 092216.png}
+    \caption{Layout Design of CMOS inverter}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{\textbf{Parasitic Extraction}}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 092236.png}
+        \caption{av-extracted design of CMOS inverter}
+        \label{fig:enter-label}
+    \end{figure}
+
+
+   \subsubsection{\textbf{Comparison of different parameters between pre-layout and post-layout simulations}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 114616.png}
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 091356.png}
+    \caption{Pre-layout and Post-layout simulation and average power}
+    \label{fig:pre_post_sim_power}
+\end{figure}
+ Hence, it can be concluded that the layout is accurate and closely matches to the original schematic in terms of average power consumption. This consistency validates the correctness of the design flow from schematic capture to physical layout within the EDA environment.
+
+
+
+\subsection{\large{\textbf{NOR Gate}}}
+     \textbf{CMOS NOR Gate Structure}
+     \begin{itemize}
+         \item Pull-up network: Two PMOS transistors in series
+        
+        \item Pull-down network: Two NMOS transistors in parallel
+     \end{itemize}
+     \subsubsection{Logical Expression}
+     \[
+        Q = \overline{A + B}
+        \]
+    \subsubsection{Truth Table}
+        \begin{table}[H]
+        \centering
+        \caption{Truth Table of 2-input NOR Gate}
+        \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{A} & \textbf{B} & \textbf{Q} \\
+        \hline
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 0 \\
+        \hline
+        \end{tabular}
+        \end{table}
+
+    \subsubsection{Symbol}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.2\linewidth]{Screenshot 2025-07-06 140755.png}
+            \caption{symbol of NOR gate}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{Schematic Circuit Diagram}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.6\linewidth]{Screenshot 2025-07-06 140622.png} % <-- rename your image
+            \caption{Schematic Circuit of NOR Gate}
+            \label{fig:schematic-nor}
+        \end{figure}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 140812.png}
+            \caption{Schematic Testbench of NOR gate}
+            \label{fig:enter-label}
+        \end{figure}
+        
+\subsubsection{\textbf{Components Specifications }}
+        \begin{table}[h!]
+        \centering
+        \caption{Component Specifications}
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Components} & \textbf{Library} & \textbf{Cell} & \textbf{Value} \\
+        \hline
+        pmos & gpdk90 & pmos1v & l=100nm ,w=120nm \\
+        \hline
+        nmos & gpdk90 & nmos1v & l=100nm ,w=120nm \\
+        \hline
+        V1 & analogLib & vpulse & v2=1.8v,T=50ns,td=50ps,tr=10ps,tf=10ps,pw=25ns\\
+        \hline
+        V2 & analogLib & vpulse & v2=1.8v,T=100ns,td=50ps,tr=10ps,tf=10ps,pw=50ns\\
+        \hline
+        vdd & analogLib & vdc & vdc=1.8v\\
+        \hline
+        ground & analogLib & gnd & --\\
+        
+        \hline
+        \end{tabular}
+        \end{table}
+
+
+    \subsubsection{Output}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 135925.png}
+            \caption{Output with average power spectrum}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{Layout Design}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 140727.png}
+            \caption{Layout of NOR gate}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{Parasitic Extraction}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 140658.png}
+            \caption{av-extracted diagram}
+            \label{fig:enter-label}
+        \end{figure}
+
+ \subsubsection{Comparison between Pre-layout and Post-layout Simulations}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 140347.png}
+    \vspace{0.5cm} % Optional space between the two images
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 143751.png}
+    \caption{Comparison of average power: Pre-layout vs Post-layout Simulations}
+    \label{fig:power-comparison}
+\end{figure}
+ Hence, it can be concluded that the layout is accurate and closely matches to the original schematic in terms of average power consumption. This consistency validates the correctness of the design flow from schematic capture to physical layout within the EDA environment.
+
+
+
+
+\newpage
+\subsection{\large{\textbf{NAND Gate}}}
+     \textbf{CMOS NAND Gate Structure}
+     \begin{itemize}
+         \item Pull-up network: Two PMOS transistors in parallel
+        
+        \item Pull-down network: Two NMOS transistors in series
+     \end{itemize}
+     \subsubsection{Logical Expression}
+     \[
+        Y = \overline{A . B}
+        \]
+    \subsubsection{Truth Table}
+        \begin{table}[H]
+        \centering
+        \caption{Truth Table of 2-input NAND Gate}
+        \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{A} & \textbf{B} & \textbf{Y} \\
+        \hline
+        0 & 0 & 1 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+        \hline
+        \end{tabular}
+        \end{table}
+
+    \subsubsection{Symbol}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-06 150252.png}
+    \caption{Symbol of NAND Gate}
+    \label{fig:nand-symbol}
+\end{figure}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.4\linewidth]{Screenshot 2025-07-06 150220.png}
+            \caption{Schematic view of NAND gate}
+            \label{fig:enter-label}
+        \end{figure}
+\hfill
+         \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 150302.png}
+            \caption{Schematic testbench of NAND gate}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{\textbf{Components Specifications }}
+        \begin{table}[H]
+        \centering
+        \caption{Component Specifications}
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Components} & \textbf{Library} & \textbf{Cell} & \textbf{Value} \\
+        \hline
+        pmos & gpdk90 & pmos1v & l=100nm ,w=120nm \\
+        \hline
+        nmos & gpdk90 & nmos1v & l=100nm ,w=120nm \\
+        \hline
+        V1 & analogLib & vpulse & v2=1.8v,T=10ns,td=50ps,tr=10ps,tf=10ps,pw=5ns\\
+        \hline
+        V2 & analogLib & vpulse & v2=1.8v,T=20ns,td=50ps,tr=10ps,tf=10ps,pw=10ns\\
+        \hline
+        vdd & analogLib & vdc & vdc=1.8v\\
+        \hline
+        ground & analogLib & gnd & --\\
+        
+        \hline
+        \end{tabular}
+        \end{table}
+
+        
+        
+    \subsubsection{Output}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 145759.png}
+             \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 145618.png}
+            \caption{Output with power spectrum}
+            \label{fig:enter-label}
+        \end{figure}
+       
+
+    \subsubsection{Layout Design}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 150326.png}
+           \caption{layout diagram of NAND gate}
+           \label{fig:enter-label}
+       \end{figure}
+
+    \subsubsection{Parasitic Extraction}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 150340.png}
+            \caption{av-extracted diagram of NAND gate}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{Comparison between pre-layout and post-layout simulations}
+      \begin{figure}[H]
+          \centering
+          \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 150012.png}
+          \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 150136.png}
+          \caption{pre-layout and post-layout power comparison of NAND gate}
+          \label{fig:enter-label}
+      \end{figure}
+       Hence, it can be concluded that the layout is accurate and closely matches to the original schematic in terms of average power consumption. This consistency validates the correctness of the design flow from schematic capture to physical layout within the EDA environment.
+
+
+  
+
+  \subsection{\large{\textbf{XOR Gate}}}
+     \textbf{Basic Concept}
+         An XOR gate (Exclusive OR) outputs 1 only when the inputs are different,which means
+    \begin{itemize}
+        \item If both inputs are the same → Output is 0
+         \item If both inputs are different → Output is 1
+         
+     \end{itemize}
+     \subsubsection{Logical Expression}
+        \[
+        A \oplus B = \overline{A}B + A\overline{B}
+        \]
+    \subsubsection{Truth Table}
+        \begin{table}[H]
+        \centering
+        \caption{Truth Table of 2-input XOR Gate}
+        \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{A} & \textbf{B} & \textbf{Y} \\
+        \hline
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+        \hline
+        \end{tabular}
+        \end{table}
+
+    \subsubsection{Symbol}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-06 155945.png}
+            \caption{symbol of XOR gate}
+            \label{fig:enter-label}
+        \end{figure}
+    \subsubsection{Schematic Circuit Diagram}
+
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.4\linewidth]{Screenshot 2025-07-06 155814.png}
+           \caption{XOR gate using NAND gate schematic diagram}
+           \label{fig:enter-label}
+       \end{figure}
+
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 155957.png}
+           \caption{XOR gate schematic testbench}
+           \label{fig:enter-label}
+       \end{figure}
+
+   \subsubsection{\textbf{Components Specifications }}
+        \begin{table}[H]
+        \centering
+        \caption{Component Specifications}
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Components} & \textbf{Library} & \textbf{Cell} & \textbf{Value} \\
+        \hline
+        pmos & gpdk90 & pmos1v & l=100nm ,w=120nm \\
+        \hline
+        nmos & gpdk90 & nmos1v & l=100nm ,w=120nm \\
+        \hline
+        V1 & analogLib & vpulse & v2=1.8v,T=50ns,td=50ps,tr=10ps,tf=10ps,pw=25ns\\
+        \hline
+        V2 & analogLib & vpulse & v2=1.8v,T=100ns,td=50ps,tr=10ps,tf=10ps,pw=50ns\\
+        \hline
+        vdd & analogLib & vdc & vdc=1.8v\\
+        \hline
+        ground & analogLib & gnd & --\\
+        
+        \hline
+        \end{tabular}
+        \end{table}
+
+        
+    \subsubsection{Output}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 155237.png}
+            \caption{Output with power spectrum}
+            \label{fig:enter-label}
+        \end{figure}
+      
+
+    \subsubsection{Layout Design}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 155906.png}
+           \caption{layout of XOR gate}
+           \label{fig:enter-label}
+       \end{figure}
+
+    \subsubsection{Parasitic Extraction}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 155847.png}
+            \caption{av extracted XOR}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{Comparison between pre-layout and post-layout simulations}
+      \begin{figure}[H]
+          \centering
+          \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 150012.png}
+          \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 150136.png}
+          \caption{pre-layout and post-layout power comparison of XOR gate}
+          \label{fig:enter-label}
+      \end{figure}
+       Hence, it can be concluded that the layout is accurate and closely matches to the original schematic in terms of average power consumption. This consistency validates the correctness of the design flow from schematic capture to physical layout within the EDA environment.
+
+
+     \subsection{\large{\textbf{D Flipflop}}}
+     \subsubsection{\textbf{Basic Concept}}
+        D flip flop is an electronic devices that is known as "delay flip flop" or "data flip flop" which is used to store single bit of data.
+    
+        A D flip-flop is created by modifying an SR flip-flop. The S input is connected to the D input, and the R input is connected to the inverted D input. As a result, a D flip-flop functions similarly to an SR flip-flop, but with complementary inputs, preventing any possibility of an invalid intermediate state. One major issue with the SR flip-flop is the race around condition, which is eliminated in the D flip-flop due to the inverted inputs. The circuit diagram of the D flip-flop is shown in the figure below:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\linewidth]{Screenshot 2025-07-06 223135.png}
+        \caption{D flipflop}
+        \label{fig:enter-label}
+    \end{figure}
+
+    \subsubsection{\textbf{Working of D Flipflop}}
+    D flip flop consist of a single input D and two outputs (Q and Q'). The basic working of D Flip Flop is as follows:
+
+    When the clock signal is low, the flip flop holds its current state and ignores the D input.
+    When the clock signal is high, the flip flop samples and stores D input.
+    The value that was previously fed into the D input is reflected at the flip flop's Q output.
+    \begin{itemize}
+        \item If D = 0 then Q will be 0.
+        \item If D = 1 then Q will be 1.
+    \end{itemize}
+    The Q' output of the flip flop is complemented by the Q output. 
+    \begin{itemize}
+        \item  If Q = 0 then Q' will be 1.
+        \item If Q = 1 then Q' will be 0.
+    \end{itemize}
+    
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 224921.png}
+    \caption{Truth Table}
+    \label{fig:enter-label}
+\end{figure}
+
+   
+    \subsubsection{Characteristic Equation of D Flip Flop}
+        \[
+        Q_{n+1} = D
+        \]
+        This states "that the output of the flip flop at the next clock cycle will be equal to the input at the current clock cycle".
+
+    \subsubsection{Characteristic Table of D Flip Flop}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-06 230009.png}
+        \caption{Characteristic Table}
+        \label{fig:enter-label}
+    \end{figure}
+    \begin{itemize}
+        \item D is the input, and Q is current state, Q(n+1) is the next state outputs.
+        \item Q(n+1) will always be zero when D is 0, irrespective of current state of flip flop.
+        \item When the input of the flip flop is 1,  next state of  flip flop will always be 1, regardless of the current state of flip flop.
+    \end{itemize}
+
+    \subsubsection{Excitation Table of D Flip Flop}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-06 230728.png}
+        \caption{Excitation Table}
+        \label{fig:enter-label}
+    \end{figure}
+
+    \begin{itemize}
+        \item When the Q(n) is 0 and the D(n) is also 0, then the Q(n+1) becomes 0. This situation explains the condition of "hold" state.
+        \item When the Q(n) is 0 but D(n) is 1, then the Q(n+1) becomes 1. This situation explains the condition of "set" state.
+        \item When the Q(n) is 1 but D(n) is 0, then the Q(n+1) becomes 0. This situation explains the condition of "reset" state.
+        \item When the Q(n) is 1 and the D(n) is also 1, then the Q(n+1) becomes 1. This situation explains the condition of "hold" state.
+    \end{itemize}
+
+    \subsubsection{Symbol}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-06 232922.png}
+            \caption{symbol of D flipflop}
+            \label{fig:enter-label}
+        \end{figure}
+    \subsubsection{Schematic Circuit Diagram}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 233628.png}
+            \caption{Schematic diagram of D flipflop using NAND gate}
+            \label{fig:enter-label}
+        \end{figure}
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 232842.png}
+            \caption{Schematic Testbench of D flipflop}
+            \label{fig:enter-label}
+        \end{figure}
+       
+   \subsubsection{\textbf{Components Specifications }}
+        \begin{table}[H]
+        \centering
+        \caption{Component Specifications}
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Components} & \textbf{Library} & \textbf{Cell} & \textbf{Value} \\
+        \hline
+        pmos & gpdk90 & pmos1v & l=100nm ,w=120nm \\
+        \hline
+        nmos & gpdk90 & nmos1v & l=100nm ,w=120nm \\
+        \hline
+        V1 & analogLib & vpulse & v2=1.8v,T=100ns,td=50ps,tr=10ps,tf=10ps,pw=50ns\\
+        \hline
+        V2 & analogLib & vpulse & v2=1.8v,T=200ns,td=50ps,tr=10ps,tf=10ps,pw=100ns\\
+        \hline
+        vdd & analogLib & vdc & vdc=1.8v\\
+        \hline
+        ground & analogLib & gnd & --\\
+        
+        \hline
+        \end{tabular}
+        \end{table}
+
+        
+    \subsubsection{Output}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-06 232312.png}
+            \caption{Output}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{Layout Design}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 232823.png}
+           \caption{Layout of D flipflop using NAND gate layout}
+           \label{fig:enter-label}
+       \end{figure}
+
+    \subsubsection{Parasitic Extraction}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-06 232809.png}
+           \caption{av-extracted diagram}
+           \label{fig:enter-label}
+       \end{figure}
+
+    \subsubsection{Comparison between pre-layout and post-layout simulations}
+     \begin{figure}[H]
+         \centering
+         \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 232511.png}
+         \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 232724.png}
+         \caption{pre-layout and post-layout power}
+         \label{fig:enter-label}
+     \end{figure}
+      Hence, it can be concluded that the layout is accurate and closely matches to the original schematic in terms of average power consumption. This consistency validates the correctness of the design flow from schematic capture to physical layout within the EDA environment.
+
+
+    \subsection{\large{\textbf{2x1 Multiplexer}}}
+
+    The 2x1 is a fundamental circuit which is also known 2-to-1 multiplexer that are used to choose one signal from two inputs and transmits it to the output. The 2x1 mux has two input lines, one output line, and a single selection line. It has various applications in digital systems such as in microprocessor it is used to select between two different data sources or between two different instructions.
+    \subsubsection{Block Diagram of 2x1 Multiplexer}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-07 001951.png}
+        \caption{Block diagram of 2x1 MUX}
+        \label{fig:enter-label}
+    \end{figure}
+     
+    
+    \subsubsection{Truth Table and and Logical Expression}
+       
+\begin{table}[H]
+\centering
+\begin{minipage}{0.4\textwidth}
+\centering
+\caption{Truth Table}
+\begin{tabular}{|c|c|}
+\hline
+$S_0$ & Y \\
+\hline
+0 & $I_0$ \\
+1 & $I_1$ \\
+\hline
+\end{tabular}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+\caption{Truth Table}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$S_0$ & $I_0$ & $I_1$ & Y \\
+\hline
+0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 1 \\
+0 & 1 & 1 & 1 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 1 \\
+1 & 1 & 0 & 0 \\
+1 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+
+
+\[
+Y = \overline{S_0} \cdot I_0 + S_0 \cdot I_1
+\]
+
+        
+        
+    \subsubsection{\textbf{Transmission Gate Logic} }
+
+        A Transmission Gate (TG) is a complementary CMOS switch.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\linewidth]{Screenshot 2025-07-07 111146.png}
+            %\caption{Transmission gate}
+            \label{fig:enter-label}
+        \end{figure}
+
+        \begin{itemize}
+            \item Both transistors are ON or OFF simultaneously.
+            \item The NMOS switch passes a good zero but a poor 1.
+            \item The PMOS switch passes a good one but a poor 0
+        \end{itemize}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-07 111800.png}
+            %\caption{Enter Caption}
+            \label{fig:enter-label}
+        \end{figure}
+
+        \begin{itemize}
+            \item Combining them we get a good 0 and a good 1 passed in both directions 
+            \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.2\linewidth]{Screenshot 2025-07-07 112203.png}
+            %\caption{Enter Caption}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{Symbol of Transmission gate}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-07 112557.png}
+            \caption{symbol of transmission gate}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{2x1 MUX using Transmission gate}
+        \begin{figure}[H]
+           % \centering
+           \hfill
+            \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-07 112854.png}
+            \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-07 112909.png}
+            %\caption{Enter Caption}
+            \label{fig:enter-label}
+        \end{figure}
+    
+    \subsubsection{Symbol ans Schematic Diagrams in Cadence}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-07 115646.png}
+           \caption{symbol of 2x1 MUX}
+           \label{fig:enter-label}
+       \end{figure}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-07 115630.png}
+           \caption{schematic view of 2x1 MUX}
+           \label{fig:enter-label}
+       \end{figure}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-07 115706.png}
+           \caption{schematic testbench of 2x1 MUX}
+           \label{fig:enter-label}
+       \end{figure}
+
+    \subsubsection{\textbf{Components Specifications }}
+        \begin{table}[H]
+        \centering
+        \caption{Component Specifications}
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Components} & \textbf{Library} & \textbf{Cell} & \textbf{Value} \\
+        \hline
+        pmos & gpdk90 & pmos1v & l=100nm ,w=120nm \\
+        \hline
+        nmos & gpdk90 & nmos1v & l=100nm ,w=120nm \\
+        \hline
+        V1 & analogLib & vpulse & v2=1.8v,T=50ns,td=100ps,tr=50ps,tf=50ps,pw=25ns\\
+        \hline
+        V2 & analogLib & vpulse & v2=1.8v,T=100ns,td=100ps,tr=50ps,tf=50ps,pw=50ns\\
+        \hline
+        V3 & analogLib & vpulse & v2=1.8v,T=150ns,td=100ps,tr=50ps,tf=50ps,pw=75ns\\
+        \hline
+        vdd & analogLib & vdc & vdc=1.8v\\
+        \hline
+        ground & analogLib & gnd & --\\
+        
+        \hline
+        \end{tabular}
+        \end{table}
+
+        
+        
+    \subsubsection{Output}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-07 115149.png}
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-07 115336.png}
+            \caption{output with power spectrum}
+            \label{fig:enter-label}
+        \end{figure}
+       
+    \subsubsection{Layout Design}
+      \begin{figure}[H]
+          \centering
+          \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-07 115618.png}
+          \caption{Layout of 2x1 MUX}
+          \label{fig:enter-label}
+      \end{figure}
+      
+    \subsubsection{Parasitic Extraction}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-07 115603.png}
+            \caption{av-extracted diagram of 2x1 MUX}
+            \label{fig:enter-label}
+        \end{figure}
+
+    \subsubsection{Comparison between pre-layout and post-layout simulations}
+      \begin{figure}[H]
+          \centering
+          \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 150012.png}
+          \includegraphics[width=1\linewidth]{Screenshot 2025-07-06 150136.png}
+          \caption{pre-layout and post-layout power comparison of 2x1 MUX}
+          \label{fig:enter-label}
+      \end{figure}
+       Hence, it can be concluded that the layout is accurate and closely matches to the original schematic in terms of average power consumption. This consistency validates the correctness of the design flow from schematic capture to physical layout within the EDA environment.
+
+ \subsection{\large{\textbf{4x1 Multiplexer}}}
+
+   The 4x1 Multiplexer which is also known as the 4-to-1 multiplexer. It is a multiplexer that has 4 inputs and a single output. The Output is selected as one of the 4 inputs which is based on the selection inputs. The number of the Selection lines will depend on the number of the input which is determined by the equation \[ \log_{2}n \]In 4x1 Mux the selection lines can be determined as \[ \log_{2}4=2 \] So two selection lines  are needed.
+    \subsubsection{Block Diagram of 4x1 Multiplexer}
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-07 124047.png}
+        \caption{Block Diagram of 4x1 MUX}
+        \label{fig:enter-label}
+    \end{figure}
+     In the Block Diagram I0, I1, I2, and I3 are the 4 inputs and Y is the Single output which is based on Select lines S0 and S1.
+    
+    \subsubsection{Truth Table and and Logical Expression}
+    
+    \begin{table}[H]
+        \centering
+        \caption{Truth Table for 4x1 MUX}
+        \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor{green!50}
+        \textbf{S0} & \textbf{S1} & \textbf{Y} \\
+        \hline
+        0 & 0 & I\textsubscript{0} \\
+        0 & 1 & I\textsubscript{1} \\
+        1 & 0 & I\textsubscript{2} \\
+        1 & 1 & I\textsubscript{3} \\
+        \hline
+        \end{tabular}
+        \end{table}
+   
+    \[
+    Y =  \overline{S_0} \overline{S_1} I_0 +\overline{S_0} S_1 I_1 + S_0 \overline{S_1} I_2 + S_0 S_1 I_3
+    \]
+        
+    
+    \subsubsection{4x1 MUX using 2x1 MUX symbol and schematic diagrams in Cadence}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.3\linewidth]{Screenshot 2025-07-07 132540.png}
+           \caption{symbol of 4x1 MUX}
+           \label{fig:enter-label}
+       \end{figure}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.6\linewidth]{Screenshot 2025-07-07 132524.png}
+           \caption{schematic view of 4x1 MUX using 2x1 MUX}
+           \label{fig:enter-label}
+       \end{figure}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.9\linewidth]{Screenshot 2025-07-07 132556.png}
+           \caption{schematic testbench of 4x1 MUX}
+           \label{fig:enter-label}
+       \end{figure}
+
+    \subsubsection{\textbf{Components Specifications }}
+        \begin{table}[H]
+        \centering
+        \caption{Component Specifications}
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Components} & \textbf{Library} & \textbf{Cell} & \textbf{Value} \\
+        \hline
+        pmos & gpdk90 & pmos1v & l=100nm ,w=120nm \\
+        \hline
+        nmos & gpdk90 & nmos1v & l=100nm ,w=120nm \\
+        \hline
+        V1 & analogLib & vpulse & v2=1.8v,T=50ns,td=50ps,tr=100ps,tf=100ps,pw=25ns\\
+        \hline
+        V2 & analogLib & vpulse & v2=1.8v,T=100ns,td=50ps,tr=100ps,tf=100ps,pw=50ns\\
+        \hline
+        V3 & analogLib & vpulse & v2=1.8v,T=150ns,td=50ps,tr=100ps,tf=100ps,pw=75ns\\
+        \hline
+        V4 & analogLib & vpulse & v2=1.8v,T=200ns,td=50ps,tr=100ps,tf=100ps,pw=100ns\\
+        \hline
+        V5 & analogLib & vpulse & v2=1.8v,T=250ns,td=50ps,tr=100ps,tf=100ps,pw=125ns\\
+        \hline
+        V6 & analogLib & vpulse & v2=1.8v,T=300ns,td=50ps,tr=100ps,tf=100ps,pw=150ns\\
+        \hline
+        vdd & analogLib & vdc & vdc=1.8v\\
+        \hline
+        ground & analogLib & gnd & --\\
+        
+        \hline
+        \end{tabular}
+        \end{table}
+
+        
+        
+    \subsubsection{Output}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=1\linewidth]{Screenshot 2025-07-07 131817.png}
+           \caption{output with power spectrum}
+           \label{fig:enter-label}
+       \end{figure}
+       
+    \subsubsection{Layout Design}
+     \begin{figure}[H]
+         \centering
+         \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-07 132512.png}
+         \caption{Layout of 4x1 MUX}
+         \label{fig:enter-label}
+     \end{figure}
+      
+    \subsubsection{Parasitic Extraction}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.8\linewidth]{Screenshot 2025-07-07 132450.png}
+           \caption{av-extracted diagram of 4x1 MUX}
+           \label{fig:enter-label}
+       \end{figure}
+
+    \subsubsection{Comparison between pre-layout and post-layout simulations}
+      \begin{figure}[H]
+          \centering
+          \includegraphics[width=0.9\linewidth]{Screenshot 2025-07-07 132215.png}
+          \includegraphics[width=0.9\linewidth]{Screenshot 2025-07-07 132153.png}
+          \caption{ pre-layout and post-layout power comparison of 4x1 MUX}
+          \label{fig:enter-label}
+      \end{figure}
+      Hence, it can be concluded that the layout is accurate and closely matches to the original schematic in terms of average power consumption. This consistency validates the correctness of the design flow from schematic capture to physical layout within the EDA environment.
+    
+
+\newpage
+\section{Implementation Of Verilog Code In Vivado \label{def}}
+In today’s digital electronics, designing and testing circuits with hardware description languages like Verilog has become a standard practice. By the help of Vivado(developed by Xilinx) writing, simulating, and verification of Verilog designs are done, especially for FPGA-based applications.
+
+In this project, I used Vivado to implement and simulate a set of basic digital circuits in Verilog included Half Adder, Full Adder, 4-bit Up Counter, 4-bit Down Counter and 4-bit Up-Down Counter.
+
+The focus was on writing code and simulation. While the circuits were not implemented on physical hardware, I thoroughly tested their functionality using Vivado tools. This confirmed the logic’s correctness and enhanced understanding of essential digital design concepts.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-08 144700.png}
+    \caption{Flow chart of conventional design flow using Verilog }
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection{Half Adder}
+\subsubsection{What is Half Adder?}
+The half
+adder adds two binary digits and produces two outputs as
+sum and carry. It consists of one XOR logic gate producing
+“SUM” and one AND gate producing “CARRY” as outputs.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-08 203614.png}
+    \caption{Block Diagram of Half Adder}
+    \label{fig:enter-label}
+\end{figure}
+\subsubsection{Circuit Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-08 133053.png}
+    \caption{circuit diagram of half adder}
+    \label{fig:enter-label}
+\end{figure}
+\subsubsection{Truth Table}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{INPUT}} & \multicolumn{2}{c|}{\textbf{OUTPUT}} \\ \hline
+\textbf{A} & \textbf{B} & \textbf{Sum} & \textbf{Carry} \\ \hline
+0 & 0 & 0 & 0 \\ \hline
+1 & 0 & 1 & 0 \\ \hline
+0 & 1 & 1 & 0 \\ \hline
+1 & 1 & 0 & 1 \\ \hline
+\end{tabular}
+\caption{Truth Table of Half Adder}
+\end{table}
+\subsubsection{Output}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-08 120035.png}
+    \caption{output waveforms of half adder}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection{Full Adder}
+\subsubsection{What is Full Adder?}
+A full adder is a combinational circuit that performs an
+addition operation on three binary digits. It consists of three
+inputs and two outputs. The first two inputs are A and B and
+the third input is an input carry designated as Cin. The
+output carry is designated as Carry and the normal output is
+designated as Sum.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Screenshot 2025-07-08 213545.png}
+    \caption{Block Diagram of Full Adder}
+    \label{fig:enter-label}
+\end{figure}
+
+A full adder circuit can be implemented using two half adders
+and one OR gate. The first half adder will be used to add A
+and B to produce a partial Sum and the second half adder
+can be used to add Cin to the Sum produced by the first half
+adder to get the final S output. If any of the half adder
+produces a carry, there will be an output carry. So, Cout will
+be an OR function of the half adder Carry outputs. 
+
+\subsubsection{Circuit Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-08 132503.png}
+    \caption{Circuit Diagram of full adder designed in Vivado}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{Truth Table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{INPUT}} & \multicolumn{2}{c|}{\textbf{OUTPUT}} \\ \hline
+\textbf{A} & \textbf{B} & \textbf{Cin} & \textbf{Sum} & \textbf{Carry} \\ \hline
+0 & 0 & 0 & 0 & 0 \\ \hline
+0 & 0 & 1 & 1 & 0 \\ \hline
+0 & 1 & 0 & 1 & 0 \\ \hline
+0 & 1 & 1 & 0 & 1 \\ \hline
+1 & 0 & 0 & 1 & 0 \\ \hline
+1 & 0 & 1 & 0 & 1 \\ \hline
+1 & 1 & 0 & 0 & 1 \\ \hline
+1 & 1 & 1 & 1 & 1 \\ \hline
+\end{tabular}
+\caption{Truth Table of Full Adder}
+\end{table}
+
+\subsubsection{Output}
+\begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-08 132432.png}
+    \caption{output waveforms of full adder}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection{4-bit Up Counter}
+\subsubsection{What is a 4-Bit Up Counter?}
+A 4-bit up counter is a digital circuit that counts numbers from 0 to 15.  It uses binary numbers (0 and 1) to represent each value.
+
+\begin{itemize}
+    \item The counter works like a memory which uses flip-flops to store count.
+
+    \item Every time circuit receives a clock pulse, the counter increases its value by 1( counter=counter+1) for every rising edge of the clock.
+    
+    \item When it reaches the highest number 15, it reset to 0 and starts counting again.
+    
+    \end{itemize}
+
+
+\subsubsection{Circuit Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-08 225422.png}
+    \caption{circuit diagram of 4bit up counter}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{Truth Table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Count} & \textbf{D} & \textbf{C} & \textbf{B} & \textbf{A} \\
+\hline
+0  & 0 & 0 & 0 & 0 \\
+1  & 0 & 0 & 0 & 1 \\
+2  & 0 & 0 & 1 & 0 \\
+3  & 0 & 0 & 1 & 1 \\
+4  & 0 & 1 & 0 & 0 \\
+5  & 0 & 1 & 0 & 1 \\
+6  & 0 & 1 & 1 & 0 \\
+7  & 0 & 1 & 1 & 1 \\
+8  & 1 & 0 & 0 & 0 \\
+9  & 1 & 0 & 0 & 1 \\
+10 & 1 & 0 & 1 & 0 \\
+11 & 1 & 0 & 1 & 1 \\
+12 & 1 & 1 & 0 & 0 \\
+13 & 1 & 1 & 0 & 1 \\
+14 & 1 & 1 & 1 & 0 \\
+15 & 1 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\caption{4-bit Binary Up Counter}
+\end{table}
+
+\subsubsection{Output}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-08 222847.png}
+    \caption{output of 4bit up counter}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection{4-bit down Counter}
+\subsubsection{What is a 4-Bit Down Counter?}
+A 4-bit down counter is a digital circuit that counts numbers in reverse from 15 to 0. It uses binary numbers (0 and 1) to represent each value.
+
+\begin{itemize}
+    \item The counter behaves like memory.It uses flip-flops to store current count.
+
+    \item Each time the circuit receives a clock pulse, the counter decreases its value by 1 (counter = counter - 1) for every rising edge of the clock.
+    
+    \item When it reaches the lowest value 0, it reset and starts counting again from 15.
+\end{itemize}
+
+
+\subsubsection{Circuit Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-08 225543.png}
+    \caption{Circuit Diagram of 4 bit down counter}
+    \label{fig:enter-label}
+\end{figure}
+\subsubsection{Truth Table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Count} & \textbf{D} & \textbf{C} & \textbf{B} & \textbf{A} \\
+\hline
+15 & 1 & 1 & 1 & 1 \\
+14 & 1 & 1 & 1 & 0 \\
+13 & 1 & 1 & 0 & 1 \\
+12 & 1 & 1 & 0 & 0 \\
+11 & 1 & 0 & 1 & 1 \\
+10 & 1 & 0 & 1 & 0 \\
+9  & 1 & 0 & 0 & 1 \\
+8  & 1 & 0 & 0 & 0 \\
+7  & 0 & 1 & 1 & 1 \\
+6  & 0 & 1 & 1 & 0 \\
+5  & 0 & 1 & 0 & 1 \\
+4  & 0 & 1 & 0 & 0 \\
+3  & 0 & 0 & 1 & 1 \\
+2  & 0 & 0 & 1 & 0 \\
+1  & 0 & 0 & 0 & 1 \\
+0  & 0 & 0 & 0 & 0 \\
+\hline
+\end{tabular}
+\caption{Truth Table for 4-bit Down Counter}
+\end{table}
+
+\subsubsection{Output}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-08 225045.png}
+    \caption{output of 4bit down counter}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection{4-bit up-down Counter}
+\subsubsection{What is a 4-bit Up-Down Counter?}
+A 4-bit up-down counter is a digital circuit which can count both upward (from 0 to 15) and downward (from 15 to 0) depending on the control signal.
+
+\begin{itemize}
+    \item The counter acts as memory by using flip-flop to store count value.
+
+    \item It receives a clock pulse to update count value. If the control signal is set to 'up', the counter increases its value by 1 (counter = counter + 1). If the signal is set to 'down', it decreases it's value by 1 (counter = counter - 1).
+
+    \item When it reaches the lowest value 0, it reset and starts counting again from 15.When counting up,it reset and starts counting again from 15 to 0. When counting down, it reset and starts counting again from 0 to 15.
+    
+\end{itemize}
+
+
+
+\subsubsection{Circuit Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Screenshot 2025-07-08 230525.png}
+    \caption{Circuit Diagram of 4 bit up-down counter}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsubsection{Output}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-07-08 231259.png}
+    \caption{output of 4bit up-down counter}
+    \label{fig:enter-label}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{thebibliography}{99}
+
+\bibitem{baker}
+R. J. Baker, \textit{CMOS: Circuit Design, Layout, and Simulation}, 3rd ed. Wiley-IEEE Press, 2010.
+
+\bibitem{weste}
+N. H. E. Weste, D. Harris, and A. Banerjee, \textit{CMOS VLSI Design: A Circuits and Systems Perspective}, 4th ed., Pearson Education, 2011.
+
+\bibitem{kang}
+S. M. Kang and Y. Leblebici, \textit{CMOS Digital Integrated Circuits: Analysis and Design}, 4th ed., McGraw-Hill Education, 2014.
+
+\bibitem{rabaey}
+J. M. Rabaey, A. Chandrakasan, and B. Nikolić, \textit{Digital Integrated Circuits: A Design Perspective}, 2nd ed., Pearson, 2003.
+
+\bibitem{cadence}
+Cadence Design Systems, \textit{Cadence Virtuoso Design Environment User Guide}. [Online]. Available: \url{https://www.cadence.com}
+
+\bibitem{Abhiyantha}
+Abhiyantha, \textit{UTB02 - Full Custom Analog Inverter Design using Cadence EDA Tools}. [Online]. Available: \url{https://www.abhiyantha.com/university-tech-bytes/vlsi-utb-sessions}
+
+\bibitem{Bharat IC}
+Bharat IC, \textit{Digital gates layout design using Cadence virtuoso}. [Online]. Available on Youtube: \url{https://www.youtube.com/watch?v=JmFP4RXhrQM&list=PL64gJbe2V08li6-40xGnpAnKnxVjp4qQ1&index=8}
+
+
+\bibitem{xilinx}
+Xilinx, \textit{Vivado Design Suite User Guide: Design Flows Overview}, UG892, Xilinx Inc., 2022. [Online]. Available: \url{https://www.xilinx.com}
+
+\bibitem{hodges}
+D. A. Hodges, H. G. Jackson, and R. A. Saleh, \textit{Analysis and Design of Digital Integrated Circuits}, 3rd ed., McGraw-Hill, 2004.
+
+\bibitem{mano}
+M. Mano and M. D. Ciletti, \textit{Digital Design with an Introduction to the Verilog HDL}, 5th ed., Pearson Education, 2012.
+
+\bibitem{mano}
+M. Morris Mano and Michael D. Ciletti, 
+\textit{Digital Design with an Introduction to the Verilog HDL}, 
+5th Edition, Pearson Education, 2013.
+
+\bibitem{wakerly}
+John F. Wakerly,
+\textit{Digital Design: Principles and Practices},
+4th Edition, Pearson Prentice Hall, 2005.
+
+\bibitem{rabaey}
+Jan M. Rabaey, Anantha Chandrakasan, and Borivoje Nikolić,
+\textit{Digital Integrated Circuits: A Design Perspective},
+2nd Edition, Pearson, 2003.
+
+\bibitem{brown}
+Stephen Brown and Zvonko Vranesic,
+\textit{Fundamentals of Digital Logic with Verilog Design},
+3rd Edition, McGraw-Hill Education, 2013.
+
+\bibitem{vhdl}
+Samir Palnitkar,
+\textit{Verilog HDL: A Guide to Digital Design and Synthesis},
+2nd Edition, Pearson Education, 2003.
+
+\bibitem{online}
+All About Circuits, 
+“4-Bit Up/Down Counter Design,” 
+Available at: \url{https://www.allaboutcircuits.com}
+
+\bibitem{nptel}
+NPTEL Courses, 
+“Digital Circuits” by Prof. S. Srinivasan, IIT Madras,
+Available at: \url{https://nptel.ac.in}
+
+\end{thebibliography}
+\end{document}
+
